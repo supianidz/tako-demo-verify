@@ -26,6 +26,7 @@ type EnvItem struct {
 }
 
 type DiagnosticsData struct {
+	AppVersion     string    `json:"appVersion"`
 	Hostname       string    `json:"hostname"`
 	HostHeader     string    `json:"hostHeader"`
 	Proto          string    `json:"proto"`
@@ -78,7 +79,7 @@ const htmlTemplate = `<!DOCTYPE html>
             <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
               Takō Verification Mini App
               <span class="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono">
-                <span class="size-1.5 rounded-full bg-emerald-400 animate-pulse"></span> LIVE
+                <span class="size-1.5 rounded-full bg-emerald-400 animate-pulse"></span> {{.AppVersion}}
               </span>
             </h1>
             <p class="text-xs text-slate-400">Validating Ingress Domains, Environment Variables, & Container Execution</p>
@@ -289,6 +290,7 @@ func getDiagnostics(r *http.Request) DiagnosticsData {
 	}
 
 	return DiagnosticsData{
+		AppVersion:    "v1.1.0",
 		Hostname:      hostname,
 		HostHeader:    r.Host,
 		Proto:         proto,
